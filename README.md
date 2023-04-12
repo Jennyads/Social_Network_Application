@@ -1,6 +1,8 @@
 <h3>Aplicação de rede social completa escrita em Go</h3>
 
 Objetivo do projeto: criar uma rede social que seja possível criar publicaçẽs que contenham apenas texto. 
+
+Componentes: API(back-end) e Web App(front-end).
 ```
 
 Entidades da aplicação:
