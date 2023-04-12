@@ -11,9 +11,7 @@ Entidades da aplicação:
 *Seguir e parar de seguir outro usuário;
 *Buscar os usuários que segue e que são seguidos;
 *Atualizar senha;
-
-
-Assim, no bancoo de dados terá duas tabelas referente a usuários e seguidores. 
+Assim, no banco de dados terá duas tabelas referente a usuários e seguidores. 
 
 -Publicações:
 *CRUD;
