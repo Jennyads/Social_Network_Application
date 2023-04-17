@@ -3,6 +3,8 @@ package controllers
 import (
 	"api/src/banco"
 	"api/src/modelos"
+	"strings"
+
 	"api/src/repositorios"
 	"api/src/respostas"
 	"encoding/json"
@@ -24,6 +26,11 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request){
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
 	}
+	if erro = usuario.Preparar(); erro != nil{
+		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+	
 
 	db, erro := banco.Conectar()
 	if erro != nil {
@@ -45,8 +52,23 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request){
 
 }
 //BuscarUsuarios busca todos os usuários salvos no banco de dados
-func BuscarUsuarios(w http.ResponseWriter, R *http.Request){
-	w.Write([]byte("Buscando todos os usuários!"))
+func BuscarUsuarios(w http.ResponseWriter, r *http.Request){
+	nomeOuNick := strings.ToLower(r.URL.Query().Get("usuario"))
+
+	db, erro := banco.Conectar()
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+	defer db.Close()
+
+	repositorio := repositorios.NovoRepositorioDeUsuarios(db)
+	usuarios, erro := repositorio.Buscar(nomeOuNick)
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+	respostas.JSON(w, http.StatusOK, usuarios)
 }
 //BuscarUsuario busca um usuario salvo no banco
 func BuscarUsuario(w http.ResponseWriter, R *http.Request){
