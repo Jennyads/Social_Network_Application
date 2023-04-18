@@ -4,7 +4,6 @@ import (
 	"errors"
 	"strings"
 	"time"
-	
 )
 
 //Usuario representa um usuário utilizando a rede social
@@ -18,9 +17,9 @@ type Usuario struct {
 	CriadoEm time.Time `json:"CriadoEm,omitempty"`
 }
 
-//Preparar vai chamar os métodos para avaliar e formatar o usuário recebido
-func (usuario *Usuario) preparar() error {
-	if erro := usuario.validar(); erro != nil {
+// Preparar vai chamar os métodos para avaliar e formatar o usuário recebido
+func (usuario *Usuario) Preparar(etapa string) error {
+	if erro := usuario.validar(etapa); erro != nil {
 		return erro
 	}
 	usuario.formatar()
@@ -28,7 +27,7 @@ func (usuario *Usuario) preparar() error {
 
 }
 
-func (usuario *Usuario) validar() error{
+func (usuario *Usuario) validar(etapa string) error {
 	if usuario.Nome == "" {
 		return errors.New("O nome é obrigatório e não pode estar em branco")
 	}
@@ -36,20 +35,19 @@ func (usuario *Usuario) validar() error{
 	if usuario.Nick == "" {
 		return errors.New("O nick é obrigatório e não pode estar em branco")
 	}
-
-	if usuario.Email == "" { 
-		return errors.New("O email é obrigatório e não pode estar em branco")
+	if usuario.Email == "" {
+		return errors.New("O e-mail é obrigatório e não pode estar em branco")
 	}
 
-	if usuario.Senha == "" {
+	if etapa == "cadastro" && usuario.Senha == "" {
 		return errors.New("A senha é obrigatório e não pode estar em branco")
 	}
 
 	return nil
-	
+
 }
 
-func (usuario * Usuario) formatar() {
+func (usuario *Usuario) formatar() {
 	usuario.Nome = strings.TrimSpace(usuario.Nome)
 	usuario.Nick = strings.TrimSpace(usuario.Nick)
 	usuario.Email = strings.TrimSpace(usuario.Email)
