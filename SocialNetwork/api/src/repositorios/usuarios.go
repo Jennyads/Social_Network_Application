@@ -41,20 +41,21 @@ func (repositorio Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 
 // Buscar traz todos os usuários que atendem um filtro de nome ou nick
 func (repositorio Usuarios) Buscar(nomeOuNick string) ([]modelos.Usuario, error) {
-	nomeOuNick =fmt.Sprintf("%%%s%%", nomeOuNick)
+	nomeOuNick = fmt.Sprintf("%%%s%%", nomeOuNick) // %nomeOuNick%
 
 	linhas, erro := repositorio.db.Query(
-		"select id, nome, email, criadoEm from usuarios where nome LIKE ? or nick LIKE ?",
+		"select id, nome, nick, email, criadoEm from usuarios where nome LIKE ? or nick LIKE ?",
 		nomeOuNick, nomeOuNick,
 	)
+
 	if erro != nil {
-		return nil,erro
+		return nil, erro
 	}
 	defer linhas.Close()
 
 	var usuarios []modelos.Usuario
 
-	for linhas.Next(){
+	for linhas.Next() {
 		var usuario modelos.Usuario
 
 		if erro = linhas.Scan(
@@ -66,16 +67,15 @@ func (repositorio Usuarios) Buscar(nomeOuNick string) ([]modelos.Usuario, error)
 		); erro != nil {
 			return nil, erro
 		}
-		usuarios = append(usuarios, usuario)
 
+		usuarios = append(usuarios, usuario)
 	}
 
 	return usuarios, nil
-
 }
 
 // BuscarPorID traz um usuário do banco de dados
-func (repositorio Usuarios) BuscarPorID(ID uint64) (modelos.Usuario, error){
+func (repositorio Usuarios) BuscarPorID(ID uint64) (modelos.Usuario, error) {
 	linhas, erro := repositorio.db.Query(
 		"select id, nome, nick, email, criadoEm from usuarios where id = ?",
 		ID,
@@ -94,10 +94,11 @@ func (repositorio Usuarios) BuscarPorID(ID uint64) (modelos.Usuario, error){
 			&usuario.Nick,
 			&usuario.Email,
 			&usuario.CriadoEm,
-		); erro!= nil {
+		); erro != nil {
 			return modelos.Usuario{}, erro
-		}	
+		}
 	}
+
 	return usuario, nil
 }
 
@@ -127,4 +128,23 @@ func (repositorio Usuarios) Deletar(ID uint64) error{
 		return erro
 	}
 	return nil
-}	
+}
+
+//BuscarPorEmail busca um usuário por email e retorna o seu id e senha com hash
+func (repositorio Usuarios) BuscarPorEmail(email string) (modelos.Usuario, error){
+	linha, erro := repositorio.db.Query("select id, senha from usuarios where email = ?", email)
+	if erro != nil {
+		return modelos.Usuario{}, erro
+	}
+	defer linha.Close()
+
+	var usuario modelos.Usuario
+
+	if linha.Next(){
+		if erro = linha.Scan(&usuario.ID, &usuario.Senha); erro != nil {
+			return modelos.Usuario{}, erro
+		}
+
+	}
+	return usuario, nil
+}

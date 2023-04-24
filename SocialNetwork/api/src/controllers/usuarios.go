@@ -1,8 +1,10 @@
 package controllers
 
 import (
+	"api/src/autenticacao"
 	"api/src/banco"
 	"api/src/modelos"
+	"errors"
 	"strconv"
 	"strings"
 
@@ -54,7 +56,7 @@ func CriarUsuario(w http.ResponseWriter, r *http.Request){
 	
 
 }
-//BuscarUsuarios busca todos os usuários salvos no banco de dados
+// BuscarUsuarios busca todos os usuários salvos no banco
 func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
 	nomeOuNick := strings.ToLower(r.URL.Query().Get("usuario"))
 	db, erro := banco.Conectar()
@@ -73,7 +75,8 @@ func BuscarUsuarios(w http.ResponseWriter, r *http.Request) {
 
 	respostas.JSON(w, http.StatusOK, usuarios)
 }
-//BuscarUsuario busca um usuario salvo no banco
+
+// BuscarUsuario busca um usuário salvo no banco
 func BuscarUsuario(w http.ResponseWriter, r *http.Request) {
 	parametros := mux.Vars(r)
 
@@ -105,6 +108,16 @@ func AtualizarUsuario(w http.ResponseWriter, r *http.Request){
 	usuarioID, erro := strconv.ParseUint(parametros["usuarioId"], 10, 64)
 	if erro != nil {
 		respostas.Erro(w, http.StatusBadRequest, erro)
+		return
+	}
+	usuarioIDNoToken, erro := autenticacao.ExtrairUsuarioID(r)
+	if erro != nil {
+		respostas.Erro(w, http.StatusUnauthorized, erro)
+		return
+	}
+
+	if usuarioID != usuarioIDNoToken {
+		respostas.Erro(w, http.StatusForbidden, errors.New("não é possível atualizar um usuário que não seja o seu"))
 		return
 	}
 
