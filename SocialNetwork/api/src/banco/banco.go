@@ -1,6 +1,3 @@
-
- 
-
 package banco
 
 import (
