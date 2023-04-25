@@ -1,9 +1,8 @@
 CREATE DATABASE IF NOT EXISTS devbook;
-USE devbook;
+Use devbook;
 
-DROP TABLE IF EXISTS publicacoes;
-DROP TABLE IF EXISTS seguidores;
 DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS seguidores;
 
 CREATE TABLE usuarios(
     id int auto_increment primary key,
@@ -41,3 +40,7 @@ CREATE TABLE publicacoes(
     curtidas int default 0,
     criadaEm timestamp default current_timestamp
 ) ENGINE=INNODB;
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+Terms

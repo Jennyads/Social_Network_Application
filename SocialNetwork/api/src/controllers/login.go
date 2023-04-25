@@ -8,14 +8,13 @@ import (
 	"api/src/respostas"
 	"api/src/seguranca"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"net/http"
-	"strconv"
 )
 
-// Login é responsável por autenticar um usuário na API
-func Login(w http.ResponseWriter, r *http.Request) {
-	corpoRequisicao, erro := ioutil.ReadAll(r.Body)
+//Login é responsável por autenticar um usuário na API
+func Login(w http.ResponseWriter, r *http.Request){
+	corpoRequisicao, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.Erro(w, http.StatusUnprocessableEntity, erro)
 		return
@@ -26,7 +25,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		respostas.Erro(w, http.StatusBadRequest, erro)
 		return
 	}
-
 	db, erro := banco.Conectar()
 	if erro != nil {
 		respostas.Erro(w, http.StatusInternalServerError, erro)
@@ -45,14 +43,16 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		respostas.Erro(w, http.StatusUnauthorized, erro)
 		return
 	}
-
 	token, erro := autenticacao.CriarToken(usuarioSalvoNoBanco.ID)
 	if erro != nil {
 		respostas.Erro(w, http.StatusInternalServerError, erro)
 		return
 	}
+	w.Write([]byte(token))
 
-	usuarioID := strconv.FormatUint(usuarioSalvoNoBanco.ID, 10)
+	// usuarioID := strconv.FormatUint(usuarioSalvoNoBanco.ID, 10)
 
-	respostas.JSON(w, http.StatusOK, modelos.DadosAutenticacao{ID: usuarioID, Token: token})
+	// respostas.JSON(w, http.StatusOK, modelos.DadosAutenticacao{ID: usuarioID, Token: token})
+	
+	
 }
