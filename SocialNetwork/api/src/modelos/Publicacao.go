@@ -29,11 +29,11 @@ func (publicacao *Publicacao) Preparar() error {
 
 func (publicacao *Publicacao) validar() error {
 	if publicacao.Titulo == "" {
-		return errors.New("o título é obrigatório e não pode estar em branco")
+		return errors.New("O título é obrigatório e não pode estar em branco")
 	}
 
 	if publicacao.Conteudo == "" {
-		return errors.New("o conteúdo é obrigatório e não pode estar em branco")
+		return errors.New("O conteúdo é obrigatório e não pode estar em branco")
 	}
 
 	return nil
