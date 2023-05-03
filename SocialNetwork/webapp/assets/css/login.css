@@ -7,9 +7,9 @@
 
 a {
     font-size: 16px;
-    color: #830c65;
+    color: #3b5998;
     line-height: 1.4;
-
+    text-align: center;
 }
 
 a:hover {
@@ -19,34 +19,33 @@ a:hover {
 input {
     outline: none;
     border: none;
-    color: #830c65;
+    color: #3b5998;
     line-height: 1.2;
     font-size: 18px;
     display: block;
     width: 100%;
-    background-color: transparent;
+    background: transparent;
     height: 62px;
-    padding: 0 20px 0 30px;
-
+    padding: 0 20px 0 38px;
 }
 
 input::placeholder {
     color: #8f8fa1;
 }
 
-.container-login{
+.container-login {
     width: 100%;
     min-height: 100vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     padding: 15px;
-
 }
 
-.container-login > {
+.container-login > div {
     width: 390px;
-    background-color: #fff;
+    background: #fff;
     border-radius: 10px;
     position: relative;
     padding: 50px 0 90px 0;
@@ -86,4 +85,3 @@ input::placeholder {
 .btn-devbook:hover{
     cursor: pointer;
 }
-
