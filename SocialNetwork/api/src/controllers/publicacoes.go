@@ -8,7 +8,7 @@ import (
 	"api/src/respostas"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strconv"
 
@@ -23,7 +23,7 @@ func CriarPublicacao(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	corpoRequisicao, erro := ioutil.ReadAll(r.Body)
+	corpoRequisicao, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.Erro(w, http.StatusUnprocessableEntity, erro)
 		return
@@ -144,7 +144,7 @@ func AtualizarPublicacao(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	corpoRequisicao, erro := ioutil.ReadAll(r.Body)
+	corpoRequisicao, erro := io.ReadAll(r.Body)
 	if erro != nil {
 		respostas.Erro(w, http.StatusUnprocessableEntity, erro)
 		return
