@@ -2,7 +2,6 @@ package cookies
 
 import (
 	"net/http"
-	"time"
 	"webapp/src/config"
 
 	"github.com/gorilla/securecookie"
@@ -37,28 +36,28 @@ func Salvar(w http.ResponseWriter, ID, token string) error {
 	return nil
 }
 
-// Ler retorna os valores armazenados no cookie
-func Ler(r *http.Request) (map[string]string, error) {
-	cookie, erro := r.Cookie("dados")
-	if erro != nil {
-		return nil, erro
-	}
+// // Ler retorna os valores armazenados no cookie
+// func Ler(r *http.Request) (map[string]string, error) {
+// 	cookie, erro := r.Cookie("dados")
+// 	if erro != nil {
+// 		return nil, erro
+// 	}
 
-	valores := make(map[string]string)
-	if erro = s.Decode("dados", cookie.Value, &valores); erro != nil {
-		return nil, erro
-	}
+// 	valores := make(map[string]string)
+// 	if erro = s.Decode("dados", cookie.Value, &valores); erro != nil {
+// 		return nil, erro
+// 	}
 
-	return valores, nil
-}
+// 	return valores, nil
+// }
 
-// Deletar remove os valores armazenados no cookie
-func Deletar(w http.ResponseWriter) {
-	http.SetCookie(w, &http.Cookie{
-		Name:     "dados",
-		Value:    "",
-		Path:     "/",
-		HttpOnly: true,
-		Expires:  time.Unix(0, 0),
-	})
-}
+// // Deletar remove os valores armazenados no cookie
+// func Deletar(w http.ResponseWriter) {
+// 	http.SetCookie(w, &http.Cookie{
+// 		Name:     "dados",
+// 		Value:    "",
+// 		Path:     "/",
+// 		HttpOnly: true,
+// 		Expires:  time.Unix(0, 0),
+// 	})
+// }
