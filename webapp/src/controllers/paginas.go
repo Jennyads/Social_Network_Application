@@ -1,9 +1,11 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"webapp/src/config"
+	"webapp/src/modelos"
 	"webapp/src/requisicoes"
 	"webapp/src/respostas"
 	"webapp/src/utils"
@@ -36,5 +38,11 @@ func CarregarPaginaPrincipal(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var publicacoes []modelos.Publicacao
-	utils.ExecutarTemplate(w, "home.html", nil)
+	if erro = json.NewDecoder(response.Body).Decode(&publicacoes); erro != nil {
+		respostas.JSON(w, http.StatusUnprocessableEntity, respostas.ErroAPI{Erro : erro.Error()})
+		return
+
+	}
+	
+	utils.ExecutarTemplate(w, "home.html", publicacoes)
 }
