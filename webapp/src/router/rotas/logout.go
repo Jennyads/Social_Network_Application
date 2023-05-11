@@ -5,9 +5,9 @@ import (
 	"webapp/src/controllers"
 )
 
-var rotaPaginaPrincipal = Rota{
-	URI:                "/home",
+var rotaLogout = Rota{
+	URI:                "/logout",
 	Metodo:             http.MethodGet,
-	Funcao:             controllers.CarregarPaginaPrincipal,
+	Funcao:             controllers.FazerLogout,
 	RequerAutenticacao: true,
 }

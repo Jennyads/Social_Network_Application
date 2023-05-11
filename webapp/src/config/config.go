@@ -8,7 +8,6 @@ import (
 	"github.com/joho/godotenv"
 )
 
-
 var (
 	// APIURL representa a URL para comunicação com a API
 	APIURL = ""
@@ -23,6 +22,7 @@ var (
 // Carregar inicializa as variáveis de ambiente
 func Carregar() {
 	var erro error
+
 	if erro = godotenv.Load(); erro != nil {
 		log.Fatal(erro)
 	}
@@ -35,6 +35,5 @@ func Carregar() {
 	APIURL = os.Getenv("API_URL")
 	HashKey = []byte(os.Getenv("HASH_KEY"))
 	BlockKey = []byte(os.Getenv("BLOCK_KEY"))
-
 
 }
