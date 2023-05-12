@@ -96,7 +96,7 @@ func BuscarDadosDoUsuario(canal chan<- Usuario, usuarioID uint64, r *http.Reques
 		return
 	}
 
-	canal <- usuario
+	canal <- usuario  //canal recebe dados do usuário
 }
 
 // BuscarSeguidores chama a API para buscar os seguidores do usuário

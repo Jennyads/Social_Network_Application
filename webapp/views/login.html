@@ -17,18 +17,21 @@
                 <div>
                     <input type="text" name="email" id="email" placeholder="Digite o seu e-mail" required="required">
                 </div>
-                <div>
+                <div class="input-with-icon">
                     <input type="password" name="senha" id="senha" placeholder="Digite a sua senha" required="required">
+                    <i class="fa-solid fa-lock"></i>
                 </div>
                 <div class="botao-login-container">
-                    <button href="/criar-usuario" class="btn-devbook"> Clique aqui para criar a sua conta </button>
                     <button type="submit" class="btn-devbook">Login</button>
+                    <button class="btn-devbook" onclick="redirecionar()">Clique aqui para criar a sua conta</button>
+                    <!-- <a href="/criar-usuario" class="btn-devbook"> Clique aqui para criar a sua conta </a> -->
                 </div>
             </form>
         </div>
     </div>
     {{ template "scripts" }}
     <script src="/assets/js/login.js"></script>
+    <script src="/assets/js/cadastro.js"></script>
 </body>
 
 </html>

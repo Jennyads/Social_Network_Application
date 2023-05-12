@@ -16,3 +16,10 @@ function fazerLogin(evento) {
         Swal.fire("Ops...", "Usuário ou senha incorretos!", "error");
     });
 }
+
+function redirecionar() {
+    window.location.href = "/login";
+}
+  
+
+  

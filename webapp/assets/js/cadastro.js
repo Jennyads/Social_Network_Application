@@ -37,3 +37,8 @@ function criarUsuario(evento) {
         Swal.fire("Ops...", "Erro ao cadastrar o usuário!", "error");
     });
 }
+
+function redirecionar() {
+    window.location.href = "/criar-usuario";
+}
+  

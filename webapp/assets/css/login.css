@@ -77,9 +77,9 @@ input::placeholder {
     color: #0C5660;
     line-height: 1.2;
     padding: 0 20px;
-    width: 100%;
+    width: 80%;
     height: 62px;
-    margin-top: 10px;
+    margin-top: 18px;
     background-color: #2FACBD;
     outline: none;
     border: none;
@@ -87,6 +87,7 @@ input::placeholder {
     justify-content: center;
     flex-direction: column;
     gap: 12px;
+    border-radius: 20px;
 }
 
 .btn-devbook:hover{
@@ -98,4 +99,31 @@ input::placeholder {
     flex-direction: column;
     gap: 12px;
     background: none !important;
+    align-items: center;
 }
+
+.input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-group-addon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px; /* Opcional: para adicionar espaço ao redor do ícone */
+  }
+
+  .input-with-icon {
+    position: relative;
+  }
+
+  .input-with-icon input {
+    padding-left: 30px; /* Ajuste o valor conforme necessário para dar espaço ao ícone */
+  }
+
+  .input-with-icon i {
+    position: absolute;
+    left: 10px; /* Ajuste o valor conforme necessário para posicionar o ícone */
+    top: 10px; /* Ajuste o valor conforme necessário para posicionar o ícone */
+  }
