@@ -18,3 +18,5 @@ Assim, no banco de dados terá duas tabelas referente a usuários e seguidores.
 *Buscar publicações de acordo com os usuários que segue;
 *Curtir;
 ```
+
+Observação: Para rodar o projeto é necessário abrir dois terminais, um para o api e outro para o web app, depois basta lançar o comando: go run main.go
