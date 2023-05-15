@@ -116,7 +116,7 @@ func BuscarSeguidores(canal chan<- []Usuario, usuarioID uint64, r *http.Request)
 	}
 
 	if seguidores == nil {
-		canal <- make([]Usuario, 0)
+		canal <- make([]Usuario, 0)  //slice vazio, assim não é reconhecido como nil
 		return
 	}
 
